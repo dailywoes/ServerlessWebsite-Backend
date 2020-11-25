@@ -14,6 +14,7 @@ Resources:
   visitorCounterApi:
     Type: AWS::Serverless::Api
     Properties:
+      Name: visitorCounterApi
       StageName: prod
       Cors:
         AllowHeaders: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
@@ -21,7 +22,7 @@ Resources:
         MaxAge: "'3600'"
         AllowMethods: "'OPTIONS,POST,GET,PUT,DELETE'"
       GatewayResponses:
-        DEFAULT_2xx:
+        DEFAULT_4xx:
           ResponseParameters:
             Headers:
               Access-Control-Allow-Headers: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
