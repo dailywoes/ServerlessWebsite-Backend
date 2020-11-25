@@ -8,8 +8,8 @@ production:
   before_script:
     - pip3 install awscli --upgrade
     - pip3 install aws-sam-cli --upgrade
-    - pip3 uninstall boto3 --yes
-    - pip3 uninstall botocore --yes
+    - pip3 install -r requirements.txt
+    - pip3 install -e .
   script:
     - sam build
     - sam package --output-template-file packaged.yaml --s3-bucket johnrteixeira.com-backend
