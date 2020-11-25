@@ -2,7 +2,6 @@ from pprint import pprint
 import json
 import boto3
 def lambda_handler(event, context):
-
     dynamodb = boto3.resource('dynamodb',region_name='ca-central-1')
     table = dynamodb.Table('webpage')
     item = table.get_item(
