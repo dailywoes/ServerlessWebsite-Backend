@@ -49,9 +49,16 @@ Resources:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /{proxy+}
-            Method: POST
+            Method: GET
             RestApiId: !Ref visitorCounterApi
 
+  lambdaApiGatewayInvoke:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !GetAtt visitorCounterFunction
+      Principal: "apigateway.amazonaws.com"
+      SourceArn: !Sub "https://${visitorCounterApi}.execute-api.${AWS::Region}.amazonaws.com/prod/{proxy}+/GET/"
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
@@ -59,7 +66,7 @@ Outputs:
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
   visitorCounterApi:
     Description: "API Gateway endpoint URL for Prod stage for Hello World function"
-    Value: !Sub "https://${visitorCounterApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"  #this didnt affect it?
+    Value: !Sub "https://${visitorCounterApi}.execute-api.${AWS::Region}.amazonaws.com/prod/{proxy}+/GET/"  #this didnt affect it?
   visitorCounterFunction: #not sure if this works
     Description: "Hello World Lambda Function ARN"
     Value: !GetAtt visitorCounterFunction.Arn
