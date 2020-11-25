@@ -9,15 +9,9 @@ Description: >
 Globals:
   Function:
     Timeout: 3
-  Api:
-    Cors:
-      AllowMethods: "'GET'"
-      AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
-      AllowOrigin: "'*'"
-
 
 Resources:
-  Api:
+  visitorCounterApi:
     Type: AWS::Serverless::Api
     Properties:
       StageName: prod
@@ -29,9 +23,10 @@ Resources:
       GatewayResponses:
         DEFAULT_2xx:
           ResponseParameters:
-            Access-Control-Allow-Headers: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
-            Access-Control-Allow-Origin: "'*'"
-            Access-Control-Allow-Methods: "'OPTIONS,POST,GET,PUT,DELETE'"
+            Headers:
+              Access-Control-Allow-Headers: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
+              Access-Control-Allow-Origin: "'*'"
+              Access-Control-Allow-Methods: "'OPTIONS,POST,GET,PUT,DELETE'"
 
   visitorCounterFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
