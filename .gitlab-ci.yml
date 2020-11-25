@@ -8,6 +8,8 @@ production:
   before_script:
     - pip3 install awscli --upgrade
     - pip3 install aws-sam-cli --upgrade
+    - cd website-backend/prod
+    - pip3 install requirements.txt
   script:
     - sam build
     - cd .aws-sam/build
