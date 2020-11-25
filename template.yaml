@@ -44,7 +44,7 @@ Resources:
           Properties:
             Path: /counter
             Method: GET
-            RestApiId: !Ref Api
+            RestApiId: !Ref visitorCounterApi
 
 
 Outputs:
