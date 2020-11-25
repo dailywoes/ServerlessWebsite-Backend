@@ -18,6 +18,7 @@ def lambda_handler(event, context):
             ':val1': item['Item']['quantity'] + 1
         }
     )
+
     return {
         "statusCode": 200,
         "body": {"Visit_Count": str(item['Item']['quantity'] + 1)}
