@@ -9,6 +9,12 @@ Description: >
 Globals:
   Function:
     Timeout: 3
+  Api:
+    Cors:
+      AllowMethods: "'GET'"
+      AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+      AllowOrigin: "'*'"
+
 
 Resources:
   visitorCounterFunction:
@@ -27,13 +33,6 @@ Resources:
           Properties:
             Path: /counter
             Method: get
-
-  MyLayer:
-    Type: AWS::Serverless::LayerVersion
-    Properties:
-      ContentUri: ./prod/requirements.txt
-      CompatibleRuntimes:
-        - python3.8
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
