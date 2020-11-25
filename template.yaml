@@ -17,17 +17,18 @@ Resources:
       Name: visitorCounterApi
       StageName: prod
       Cors:
+        AllowMethods: "'OPTIONS,POST,GET,PUT,DELETE'"
         AllowHeaders: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
         AllowOrigin: "'*'"
         MaxAge: "'3600'"
-        AllowMethods: "'OPTIONS,POST,GET,PUT,DELETE'"
       GatewayResponses:
         DEFAULT_4xx:
           ResponseParameters:
             Headers:
+              Access-Control-Allow-Methods: "'OPTIONS,POST,GET,PUT,DELETE'"
               Access-Control-Allow-Headers: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
               Access-Control-Allow-Origin: "'*'"
-              Access-Control-Allow-Methods: "'OPTIONS,POST,GET,PUT,DELETE'"
+
 
   visitorCounterFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
@@ -43,8 +44,8 @@ Resources:
         visitorCounter:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /counter
-            Method: GET
+            Path: /{proxy+}
+            Method: POST
             RestApiId: !Ref visitorCounterApi
 
 
