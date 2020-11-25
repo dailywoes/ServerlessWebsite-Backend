@@ -20,10 +20,9 @@ Resources:
         - LambdaInvokePolicy:
             functionName:
               !GetAtt visitorCounterFunction.Arn
-
       Cors:
         AllowMethods: "'OPTIONS,POST,GET,PUT,DELETE'"
-        AllowHeaders: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
+        AllowHeaders: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token,Z-Client-Timezone'"
         AllowOrigin: "'*'"
         MaxAge: "'3600'"
       GatewayResponses:
