@@ -11,5 +11,5 @@ production:
   script:
     - sam build
     - sam package --output-template-file packaged.yaml --s3-bucket johnrteixeira.com-backend
-    - sam deploy --template-file packaged.yaml --stack-name johnrteixeira.com-backend --s3-bucket johnrteixeira.com-backend --capabilities CAPABILITY_IAM --region ca-central-1
+    - sam deploy --template-file packaged.yaml --stack-name website-backend --s3-bucket johnrteixeira.com-backend --capabilities CAPABILITY_IAM --region ca-central-1
   environment: production
