@@ -44,7 +44,7 @@ Resources:
         visitorCounter:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /counter
+            Path: /{proxy+}
             Method: GET
             RestApiId: !Ref visitorCounterApi
 
@@ -54,7 +54,7 @@ Outputs:
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
   visitorCounterApi:
     Description: "API Gateway endpoint URL for Prod stage for Hello World function"
-    Value: !Sub "https://${visitorCounterApi}.execute-api.${AWS::Region}.amazonaws.com/prod/counter/GET/"  #this didnt affect it?
+    Value: !Sub "https://${visitorCounterApi}.execute-api.${AWS::Region}.amazonaws.com/prod/{proxy}+/GET/"  #this didnt affect it?
   visitorCounterFunction: #not sure if this works
     Description: "Hello World Lambda Function ARN"
     Value: !GetAtt visitorCounterFunction.Arn
