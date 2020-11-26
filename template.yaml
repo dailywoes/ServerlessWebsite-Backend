@@ -25,7 +25,7 @@ Resources:
         DEFAULT_4xx:
           ResponseParameters:
             Headers:
-              Access-Control-Allow-Methods: "'OPTIONS,POST,GET,PUT,DELETE'"
+              Access-Control-Allow-Methods: "'OPTIONS,POST,GET,PUT'"
               Access-Control-Allow-Headers: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
               Access-Control-Allow-Origin: "'*'"
 
