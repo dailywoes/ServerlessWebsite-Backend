@@ -18,12 +18,10 @@ def lambda_handler(event, context):
             ':val1': item['Item']['quantity'] + 1
         }
     )
-
     return {
         "statusCode": 200,
-        "isBase64Encoded": False,
         "headers": {
             "Access-Control-Allow-Origin": "*"
         },
-        "body": {"Visit_Count": str(item['Item']['quantity'] + 1)}
+        "body": json.dumps(item['Item']['quantity'])
     }
