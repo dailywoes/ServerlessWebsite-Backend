@@ -21,5 +21,9 @@ def lambda_handler(event, context):
 
     return {
         "statusCode": 200,
+        'headers': {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        },
         "body": {"Visit_Count": str(item['Item']['quantity'] + 1)}
     }

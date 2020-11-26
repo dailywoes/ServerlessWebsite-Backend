@@ -17,16 +17,11 @@ Resources:
       Name: visitorCounterApi2
       StageName: prod
       Cors:
-        AllowMethods: "'OPTIONS,POST,GET,PUT'"
-        AllowHeaders: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token,Z-Client-Timezone'"
         AllowOrigin: "'*'"
-        MaxAge: "'3600'"
       GatewayResponses:
         DEFAULT_4xx:
           ResponseParameters:
             Headers:
-              Access-Control-Allow-Methods: "'OPTIONS,POST,GET,PUT'"
-              Access-Control-Allow-Headers: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token'"
               Access-Control-Allow-Origin: "'*'"
 
 
