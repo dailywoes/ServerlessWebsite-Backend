@@ -1,58 +1,39 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Transform: AWS::Serverless-2016-10-31
-Description: >
-  website-back-end
+Transform: 'AWS::Serverless-2016-10-31'
+Description: Backend for site view counter
 
-  Sample SAM Template for website-back-end
-
-# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
+  #https://github.com/awslabs/serverless-application-model/blob/develop/docs/globals.rst
   Function:
-    Timeout: 3
+    Runtime: python3.8
+    MemorySize: 128
 
 Resources:
-  visitorCounterApi2:
-    Type: AWS::Serverless::Api
+  ViewCounterFunction:
+    Type: 'AWS::Serverless::Function'
     Properties:
-      Name: visitorCounterApi2
-      StageName: prod
-      Cors:
-        AllowOrigin: "'*'"
-      GatewayResponses:
-        DEFAULT_4xx:
-          ResponseParameters:
-            Headers:
-              Access-Control-Allow-Origin: "'*'"
-
-
-  visitorCounterFunction:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
-    Properties:
-      FunctionName: visitorCounterFunction #this works
+      FunctionName: ViewCounterFunction
       CodeUri: prod/
       Handler: app.lambda_handler
       Runtime: python3.8
+      Description: Backend for site view counter
+      Timeout: 3
       Policies:
-      - AmazonDynamoDBFullAccess
-      - AWSLambdaBasicExecutionRole
+        - AmazonDynamoDBFullAccess
+        - AWSLambdaBasicExecutionRole
       Events:
-        visitorCounter:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+        ResumeViews:
+          Type: Api
           Properties:
+            RestApiId: !Ref ViewCounterApi
             Path: /counter
-            Method: GET
-            RestApiId: !Ref visitorCounterApi2
+            Method: get
 
-Outputs:
-  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
-  # Find out more about other implicit resources you can reference within SAM
-  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  visitorCounterApi2:
-    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
-    Value: !Sub "https://${visitorCounterApi2}.execute-api.${AWS::Region}.amazonaws.com/prod/counter/GET/"  #this didnt affect it?
-  visitorCounterFunction: #not sure if this works
-    Description: "Hello World Lambda Function ARN"
-    Value: !GetAtt visitorCounterFunction.Arn
-  visitorCounterFunctionIamRole:
-    Description: "Implicit IAM Role created for Hello World function"
-    Value: !GetAtt visitorCounterFunctionRole.Arn
+  ViewCounterApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Cors:
+        AllowOrigin: "'*'"
+      EndpointConfiguration: Regional
+      OpenApiVersion: 3.0.1
+      StageName: Prod
