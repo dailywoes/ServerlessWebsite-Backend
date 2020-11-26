@@ -11,13 +11,13 @@ Globals:
     Timeout: 3
 
 Resources:
-  visitorCounterApi:
+  visitorCounterApi2:
     Type: AWS::Serverless::Api
     Properties:
-      Name: visitorCounterApi
+      Name: visitorCounterApi2
       StageName: prod
       Cors:
-        AllowMethods: "'OPTIONS,POST,GET,PUT,DELETE'"
+        AllowMethods: "'OPTIONS,POST,GET,PUT'"
         AllowHeaders: "'Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token,Z-Client-Timezone'"
         AllowOrigin: "'*'"
         MaxAge: "'3600'"
@@ -44,9 +44,9 @@ Resources:
         visitorCounter:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /{proxy+}
+            Path: /counter
             Method: GET
-            RestApiId: !Ref visitorCounterApi
+            RestApiId: !Ref visitorCounterApi2
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
@@ -54,7 +54,7 @@ Outputs:
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
   visitorCounterApi:
     Description: "API Gateway endpoint URL for Prod stage for Hello World function"
-    Value: !Sub "https://${visitorCounterApi}.execute-api.${AWS::Region}.amazonaws.com/prod/{proxy}+/GET/"  #this didnt affect it?
+    Value: !Sub "https://${visitorCounterApi}.execute-api.${AWS::Region}.amazonaws.com/prod/counter/GET/"  #this didnt affect it?
   visitorCounterFunction: #not sure if this works
     Description: "Hello World Lambda Function ARN"
     Value: !GetAtt visitorCounterFunction.Arn
