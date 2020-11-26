@@ -1,4 +1,3 @@
-from pprint import pprint
 import json
 import boto3
 def lambda_handler(event, context):
@@ -23,5 +22,7 @@ def lambda_handler(event, context):
         "headers": {
             "Access-Control-Allow-Origin": "*"
         },
-        "body": json.dumps(item['Item']['quantity'])
+        #Lambda thinks the entry is a decimal for some reason, cast
+        #the value to an integer since json doesnt accept decimal
+        "body": json.dumps(int(item['Item']['quantity']))
     }
